@@ -12,6 +12,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+/**
+* 1.创建build.xml文件
+*    android create uitest-project -n <name> -t <android-sdk-ID> -p <path>
+*    * name就是将来生成的jar包的名字，可以自己定义
+*    * android-sdk-ID就是上面看到的6
+*    * path是Eclipse新建的工程的路径
+*
+* 2.编译生成Jar包
+*   ant build，将使用ant编译生成jar
+* 
+* 3.push 并运行Jar包
+*    adb push <jar文件路径> data/local/tmp
+*    adb shell uiautomator runtest <jar文件名> -c <工程中的类名，包含包名>
+**/
 public class UiAutomatorHelper {
 
 	// 以下参数需要配置，用例集id，用例id，安卓id
@@ -23,7 +37,7 @@ public class UiAutomatorHelper {
 	// 工作空间不需要配置，自动获取工作空间目录
 	private static String workspace_path;
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 		
 	}
 	public UiAutomatorHelper() {
@@ -84,9 +98,9 @@ public class UiAutomatorHelper {
 		modfileBuild();
 		buildWithAnt();
 		if (System.getProperty("os.name").equals("Linux")) {
-			pushTestJar(workspace_path + "/bin/" + jar_name + ".jar");
+		    pushTestJar(workspace_path + "/bin/" + jar_name + ".jar");
 		}else{
-		pushTestJar(workspace_path + "\\bin\\" + jar_name + ".jar");
+		    pushTestJar(workspace_path + "\\bin\\" + jar_name + ".jar");
 		}
 		
 		if (test_name.equals("")) {
